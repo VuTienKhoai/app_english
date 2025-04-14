@@ -1,88 +1,69 @@
-import React, { useCallback, useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
-import Tutorial from "../../components/header/Tutorial";
-import ButtonList from "../../components/button/ButtonList";
-import HeaderLesson from "../../components/header/HeaderLesson";
-import { dataSocial } from "../../dataFake/DataSocial";
-import Animated, { BounceIn, BounceOut } from "react-native-reanimated";
-import ButtonSound from "../../components/button/ButtonSound";
-import { TEXT_COLORS_DARK } from "../../constants/Color";
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import Animated, { FadeInUp } from "react-native-reanimated";
 
-const FourthScreen = ({ navigation, route }) => {
-  const { progress } = route.params || { progress: 1 / 8 };
-  const [selectedSocial, setSelectedSocial] = useState(null);
+const FourthScreen = ({ navigation }) => {
+  // Điều hướng sang FifthScreen sau 5 giây
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate("FifthScreen");
+    }, 5000);
 
-  const handleSelected = (id) => {
-    setSelectedSocial(id);
-  };
-
-  const handleContinue = useCallback(() => {
-    const newProgress = Math.min(progress + 1 / 8, 1);
-    navigation.navigate("Home_page5", { progress: newProgress });
-  }, []);
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
-      <HeaderLesson
-        percent={progress}
-        onPressGoBack={() => navigation.goBack()}
-      />
-      <Tutorial
-        linkImg={require("../../assets/images/omnom.png")}
-        text="Bạn biết tới Duolingo từ đâu?"
-      />
-      <View style={styles.scrollContainer}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.btnList}>
-            {dataSocial.map((item) => (
-              <Animated.View
-                entering={BounceIn}
-                exiting={BounceOut}
-                key={item.id}
-              >
-                <ButtonList
-                  text={item.social}
-                  linkImg={item.Image}
-                  onPress={handleSelected.bind(null, item.id)}
-                  status={selectedSocial === item.id}
-                />
-              </Animated.View>
-            ))}
-          </View>
-          <Animated.View entering={BounceIn} style={styles.btn_bottom}>
-            <ButtonSound
-              title={"COUNTINUE"}
-              onPress={handleContinue}
-              backgroundColor={"#58CC02"}
-              shadowColor={"#58A700"}
-              borderColor={"#58CC02"}
-              textStyle={styles.buttonText1}
-            />
-          </Animated.View>
-        </ScrollView>
-      </View>
-      <View></View>
+      <Animated.View entering={FadeInUp.duration(2000)}>
+        <Image
+          source={{
+            uri: "https://media.giphy.com/media/1GOffIxX68NeJTerav/giphy.gif",
+          }}
+          style={styles.gif}
+        />
+        <Text style={styles.title}>ĐANG KHỞI TẠO KHÓA HỌC...</Text>
+        <Text style={styles.subtitle}>
+          Sẵn sàng gia nhập cộng đồng <Text style={styles.highlight}>32</Text>
+        </Text>
+        <Text style={styles.subtitle}>
+          <Text style={styles.highlight}> triệu người</Text> đang học tiếng Anh
+        </Text>
+        <Text style={styles.subtitle}>
+          <Text>trên Duolingo!</Text>
+        </Text>
+      </Animated.View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#ffff" },
-  scrollContainer: { flex: 1 },
-  scrollContent: { paddingBottom: 30 },
-  btnList: { gap: 20 },
-  btn_bottom: {
-    flexDirection: "row",
+  container: {
+    flex: 1,
     justifyContent: "center",
-    marginTop: 50,
+    alignItems: "center",
+    backgroundColor: "#fff",
   },
-  buttonText1: {
-    color: TEXT_COLORS_DARK,
-    fontSize: 16,
+  gif: {
+    width: 300,
+    height: 300,
+    marginBottom: 30,
+  },
+  title: {
+    fontSize: 24,
     fontWeight: "bold",
+    color: "#A9A9A9",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  subtitle: {
+    fontSize: 21,
+    color: "#4a4e69",
+    textAlign: "center",
+    lineHeight: 30,
+  },
+  highlight: {
+    fontWeight: "bold",
+    color: "#4a4e69",
   },
 });
 
