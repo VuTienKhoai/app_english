@@ -34,9 +34,6 @@ const HeaderLesson = ({
   }, [percent]);
 
   const handleGoBack = useCallback(() => {
-    if (navigation.canGoBack()) {
-      navigation.goBack();
-    }
     if (onPressGoBack) {
       onPressGoBack();
     }

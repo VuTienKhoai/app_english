@@ -3,12 +3,14 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import PropTypes from "prop-types";
 
 const Tutorial = (props) => {
-  const { linkImg, text } = props; // Giải cấu trúc từ props
+  const { linkImg, text } = props;
 
   return (
     <View style={styles.container}>
       {linkImg && <Image source={linkImg} style={styles.linkImg} />}
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text} numberOfLines={3}>
+        {text}
+      </Text>
     </View>
   );
 };
@@ -23,11 +25,11 @@ export default memo(Tutorial);
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
+    paddingHorizontal: 14,
     flexDirection: "row",
     gap: 14,
-    marginHorizontal: 83,
-    marginBottom: 10,
+    paddingBottom: 10,
   },
   linkImg: {
     width: 90,

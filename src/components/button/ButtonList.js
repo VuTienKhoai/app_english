@@ -1,12 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
-import React, { memo } from "react";
+import React, { memo, useCallback, useEffect, useRef } from "react";
 import { PropTypes } from "prop-types";
 import {
   BACKGROUND_WHITE,
   COLOR_BTN_ACTIVE,
-  TEXT_COLORS_BLACK,
   TEXT_COLORS_BLUE,
 } from "../../constants/Color";
+import { Audio } from "expo-av";
 const ButtonList = (props) => {
   const {
     linkImg,
@@ -22,6 +22,39 @@ const ButtonList = (props) => {
     status,
     onPress,
   } = props;
+  const soundRef = useRef(new Audio.Sound());
+
+  const handleLoadSound = useCallback(async () => {
+    try {
+      await soundRef.current.loadAsync(
+        require("./../../assets/audio/click_button1.mp3")
+      );
+    } catch (error) {
+      console.error("Lỗi tải âm thanh:", error);
+    }
+  }, [soundRef]);
+
+  useEffect(() => {
+    handleLoadSound();
+
+    return () => {
+      soundRef.current.unloadAsync().catch((error) => {
+        console.error("Lỗi dọn dẹp âm thanh:", error);
+      });
+    };
+  }, []);
+
+  const playSound = async () => {
+    try {
+      await soundRef.current.replayAsync();
+    } catch (error) {
+      console.error("Lỗi phát âm thanh:", error);
+    }
+  };
+  const handleOnClick = useCallback(async () => {
+    await playSound();
+    onPress && onPress();
+  }, [onPress]);
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -33,7 +66,7 @@ const ButtonList = (props) => {
           },
           styles.button,
         ]}
-        onPress={onPress}
+        onPress={handleOnClick}
       >
         <Image source={linkImg} style={styles.linkImg} />
         <Text

@@ -7,7 +7,6 @@ import {
   SecondScreen,
   ThirstScreen,
 } from "../screens/onboarding";
-import SixthScreen from "../screens/onboarding/SixthScreen";
 
 export default function MainStackOnBoarding() {
   const Stack = createStackNavigator();
