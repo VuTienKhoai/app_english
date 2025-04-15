@@ -6,6 +6,7 @@ import { dontShowHeader } from "../constants";
 import Home from "../screens/home/Home";
 import MyTabBar from "../components/tabbar/MyTabBar";
 import { tabBarVisible } from "../screens/StackOptions";
+import NotificationScreen from "../screens/home/NotificationScreen";
 
 export const RefreshContext = createContext({
   isRefresh: false,
@@ -45,7 +46,7 @@ export default function MainTabNavigation() {
         />
         <TabNavigator.Screen
           name="NotificationScreen"
-          component={Home}
+          component={NotificationScreen}
           options={({ route }) => ({
             tabBarLabel: "Tổng quan",
             tabBarVisible: tabBarVisible(route),
