@@ -1,20 +1,22 @@
-import React, { useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import Animated, { FadeInUp } from "react-native-reanimated";
 
 const FourthScreen = ({ navigation }) => {
-  // Điều hướng sang FifthScreen sau 5 giây
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.navigate("FifthScreen");
-    }, 5000);
+  useFocusEffect(
+    useCallback(() => {
+      const timer = setTimeout(() => {
+        navigation.navigate("FifthScreen");
+      }, 2000);
 
-    return () => clearTimeout(timer);
-  }, [navigation]);
+      return () => clearTimeout(timer);
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
-      <Animated.View entering={FadeInUp.duration(2000)}>
+      <Animated.View entering={FadeInUp.duration(1000)}>
         <Image
           source={{
             uri: "https://media.giphy.com/media/1GOffIxX68NeJTerav/giphy.gif",
