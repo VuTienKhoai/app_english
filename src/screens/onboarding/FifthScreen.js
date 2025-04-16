@@ -8,9 +8,6 @@ import ButtonSound from "../../components/button/ButtonSound";
 import { TEXT_COLORS_DARK } from "../../constants/Color";
 import FirstContentOnBorading from "./contentOnBorarding/FirstContentOnBorading";
 import SecondContentOnBorading from "./contentOnBorarding/SecondContentOnBorading";
-import ThirdContentOnBoarding from "./contentOnBorarding/ThirdContentOnBoarding";
-import FourthContentOnBoarding from "./contentOnBorarding/FourthContentOnBoarding.";
-import FifthContentOnBoarding from "./contentOnBorarding/FifthContentOnBoarding";
 
 const steps = [
   {
@@ -53,13 +50,12 @@ const { width, height } = Dimensions.get("screen");
 const FifthScreen = ({ navigation }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const flatListRef = useRef();
-
   const handleNextStep = useCallback(() => {
     if (currentStep + 1 < steps.length) {
       flatListRef.current.scrollToIndex({ index: currentStep + 1 });
       setCurrentStep((prev) => prev + 1);
     } else {
-      console.log("Sang trang khóa học");
+      navigation.navigate("MainTabNavigation");
     }
   }, [currentStep]);
 

@@ -1,20 +1,13 @@
-export const BACKGROUND_WHITE = "#FFF";
-export const BACKGROUND_BLACK = "#000";
-export const BACKGROUND_GRAY = "#F0F0F0";
-export const TEXT_PRIMARY = "#00b5f1";
 export const TEXT_COLORS_DARK = "#fff";
 export const TEXT_COLORS_BLACK = "#000";
 export const TEXT_COLORS_GRAY = "#778290";
-export const TEXT_COLORS_BLUE = "#1899D6";
-
 export const TEXT_COLORS_GREEN = "#3AA999";
 export const TEXT_COLOR_ACTIVE = "#f1c40f";
 export const PRIMARY = "#58CC02";
-export const BACKGROUND = "#00b5f1";
-export const BACKGROUND_BLUE = "#CBE6FB";
-export const COLOR_NAVIGATION_FOCUS = "#00b5f1";
-export const COLOR_NAVIGATION = "#000";
-export const COLOR_BTN_ACTIVE = "#DDF4FF";
+export const BACKGROUND = "#fff";
+export const ACTIVE = "#FFC800";
+export const BORDER_BUTTON = "#84D8FF";
+export const BACKGROUND_BUTTON = "#DDF4FF";
 
 //Success
 export const SUCCESS_DARK_50 = "#1E611E";
@@ -24,6 +17,7 @@ export const SUCCESS_LIGHT_50 = "#9DE09D";
 export const SUCCESS_LIGHT_75 = "#CEEFCE";
 export const SUCCESS_LIGHT_90 = "#EBF9EB";
 export const SUCCESS_LIGHT_95 = "#F5FCF5";
+
 //Warning
 export const WARNING_DARK_50 = "#7A5E0E";
 export const WARNING_DARK_25 = "#B68C15";

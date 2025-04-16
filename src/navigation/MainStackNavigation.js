@@ -12,6 +12,7 @@ import Topic from "./../screens/topic/Topic";
 import ProgressTopic from "../screens/home/progressTopic/ProgressTopic";
 import ConversationLesson from "../screens/home/conversationLesson/ConversationLesson";
 import MainStackOnBoarding from "./MainStackOnBoarding";
+import StreakScreen from "../screens/home/streak/StreakScreen";
 
 export default function MainStackNavigation() {
   const Stack = createStackNavigator();
@@ -51,6 +52,11 @@ export default function MainStackNavigation() {
       <Stack.Screen
         name="ConversationLesson"
         component={ConversationLesson}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="StreakScreen"
+        component={StreakScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
