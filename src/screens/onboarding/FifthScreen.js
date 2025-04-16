@@ -8,28 +8,46 @@ import ButtonSound from "../../components/button/ButtonSound";
 import { TEXT_COLORS_DARK } from "../../constants/Color";
 import FirstContentOnBorading from "./contentOnBorarding/FirstContentOnBorading";
 import SecondContentOnBorading from "./contentOnBorarding/SecondContentOnBorading";
+import ThirdContentOnBoarding from "./contentOnBorarding/ThirdContentOnBoarding";
+import FourthContentOnBoarding from "./contentOnBorarding/FourthContentOnBoarding.";
+import FifthContentOnBoarding from "./contentOnBorarding/FifthContentOnBoarding";
 
 const steps = [
   {
     id: "1",
-    message: "Bạn biết tới Duolingo từ đâu ? ",
+    message: "Bạn biết tới Duolingo từ đâu ?",
     content: <FirstContentOnBorading />,
   },
   {
     id: "2",
-    message: "Tôi là khoái ? ",
+    message: "Trình độ Tiếng Anh của bạn ở mức nào?",
     content: <SecondContentOnBorading />,
   },
   {
     id: "3",
-    message: "Xin chào ? ",
+    message: "Được rồi, mình cùng học từ cơ bản nhé? ",
     content: null,
   },
   {
     id: "4",
-    message: "Hello ? ",
-    content: <SecondContentOnBorading />,
+    message: "Cùng chinh phục các kì thi bạn nhé? ",
+    content: <ThirdContentOnBoarding />,
   },
+  {
+    id: "5",
+    message: "Hãy cùng lên kế hoạch học tập nhé!",
+    content: null,
+  },
+  {
+    id: "6",
+    message: "Mục tiêu hàng ngày của bạn là gì?",
+    content: <FourthContentOnBoarding />,
+  },
+  {
+  id: "7",
+  message: "Giờ thì mình cùng tìm điểm xuất phát phù hợp nhé!",
+  content: <FifthContentOnBoarding />,
+},
 ];
 const { width, height } = Dimensions.get("screen");
 const FifthScreen = ({ navigation }) => {
@@ -64,10 +82,12 @@ const FifthScreen = ({ navigation }) => {
         percent={(currentStep + 1) / steps.length || 0}
         onPressGoBack={handlePrevStep}
       />
-      <Tutorial
-        linkImg={require("../../assets/images/omnom.png")}
-        text={steps[currentStep || 0].message}
-      />
+      <View style={styles.tutorialContainer}>
+        <Tutorial
+          linkImg={require("../../assets/images/omnom.png")}
+          text={steps[currentStep || 0].message}
+        />
+      </View>
       <FlatList
         ref={flatListRef}
         data={steps}
@@ -86,10 +106,9 @@ const FifthScreen = ({ navigation }) => {
             backgroundColor={"#58CC02"}
             shadowColor={"#58A700"}
             borderColor={"#58CC02"}
-            // backgroundColor={selectedSocial ? "#58CC02" : "#ccc"}
-            // shadowColor={selectedSocial ? "#58A700" : "#aaa"}
-            // borderColor={selectedSocial ? "#58CC02" : "#ccc"}
+         
             textStyle={styles.buttonText1}
+
           />
         </Animated.View>
       </View>
@@ -132,6 +151,11 @@ const FifthScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#ffff" },
+  tutorialContainer: {
+    width: width * 0.7, // Constrain to screen width
+    alignItems: "center", // Center content
+    alignSelf: "center",
+  },
   scrollContainer: { flex: 1 },
   scrollContent: { paddingBottom: 30 },
   btnList: { gap: 20 },

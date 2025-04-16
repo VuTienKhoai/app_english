@@ -1,10 +1,10 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { memo, useCallback, useState } from "react";
-import { level } from "./../../../dataFake/DataSocial";
+import { dataPurpose } from "./../../../dataFake/DataSocial";
 import Animated, { BounceOut, FadeInLeft } from "react-native-reanimated";
 import ButtonList from "../../../components/button/ButtonList";
 
-const SecondContentOnBorading = () => {
+const ThirdContentOnBoarding = () => {
   const [selectedSocial, setSelectedSocial] = useState(null);
   const handleSelected = useCallback((id) => {
     setSelectedSocial(id);
@@ -15,14 +15,14 @@ const SecondContentOnBorading = () => {
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.btnList}>
-        {level?.map((item, index) => (
+        {dataPurpose?.map((item, index) => (
           <Animated.View
             entering={FadeInLeft}
             exiting={BounceOut}
             key={item.id}
           >
             <ButtonList
-              text={item.level}
+              text={item.toDo}
               linkImg={item.Image}
               onPress={handleSelected.bind(null, item.id)}
               status={selectedSocial === item.id}
@@ -34,7 +34,7 @@ const SecondContentOnBorading = () => {
   );
 };
 
-export default memo(SecondContentOnBorading);
+export default memo(ThirdContentOnBoarding);
 
 const styles = StyleSheet.create({
   scrollContainer: { flex: 1 },
