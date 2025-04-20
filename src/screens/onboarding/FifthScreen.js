@@ -8,6 +8,9 @@ import ButtonSound from "../../components/button/ButtonSound";
 import { TEXT_COLORS_DARK } from "../../constants/Color";
 import FirstContentOnBorading from "./contentOnBorarding/FirstContentOnBorading";
 import SecondContentOnBorading from "./contentOnBorarding/SecondContentOnBorading";
+import ThirdContentOnBoarding from "./contentOnBorarding/ThirdContentOnBoarding";
+import FourthContentOnBoarding from "./contentOnBorarding/FourthContentOnBoarding.";
+import FifthContentOnBoarding from "./contentOnBorarding/FifthContentOnBoarding";
 
 const steps = [
   {
@@ -41,10 +44,10 @@ const steps = [
     content: <FourthContentOnBoarding />,
   },
   {
-  id: "7",
-  message: "Giờ thì mình cùng tìm điểm xuất phát phù hợp nhé!",
-  content: <FifthContentOnBoarding />,
-},
+    id: "7",
+    message: "Giờ thì mình cùng tìm điểm xuất phát phù hợp nhé!",
+    content: <FifthContentOnBoarding />,
+  },
 ];
 const { width, height } = Dimensions.get("screen");
 const FifthScreen = ({ navigation }) => {
@@ -102,9 +105,7 @@ const FifthScreen = ({ navigation }) => {
             backgroundColor={"#58CC02"}
             shadowColor={"#58A700"}
             borderColor={"#58CC02"}
-         
             textStyle={styles.buttonText1}
-
           />
         </Animated.View>
       </View>

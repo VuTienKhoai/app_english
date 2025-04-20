@@ -20,13 +20,13 @@ export default function MainStackNavigation() {
     // <SafeAreaView style={{ flex: 1 }}>
     <Stack.Navigator>
       <Stack.Screen
-        name="MainStackOnBoarding"
-        component={MainStackOnBoarding}
+        name="MainTabNavigation"
+        component={MainTabNavigation}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="MainTabNavigation"
-        component={MainTabNavigation}
+        name="MainStackOnBoarding"
+        component={MainStackOnBoarding}
         options={{ headerShown: false }}
       />
       <Stack.Screen

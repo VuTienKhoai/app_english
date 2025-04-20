@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React, { memo, useCallback, useState } from "react";
 import { dataPurpose } from "./../../../dataFake/DataSocial";
 import Animated, { BounceOut, FadeInLeft } from "react-native-reanimated";

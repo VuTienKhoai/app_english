@@ -16,9 +16,9 @@ const FifthContentOnBoarding = () => {
   const handlePressOption = (option) => {
     console.log(`Bạn đã chọn mục: ${option}`);
     if (option === "beginner") {
-      navigation.navigate("FirstScreen"); // <-- điều hướng đến Homepage
+      navigation.navigate("MainTabNavigation"); // <-- điều hướng đến Homepage
     } else if (option === "intermediate") {
-      navigation.navigate("SecondScreen"); // <-- điều hướng đến Page2
+      navigation.navigate("MainTabNavigation"); // <-- điều hướng đến Page2
     }
   };
 
