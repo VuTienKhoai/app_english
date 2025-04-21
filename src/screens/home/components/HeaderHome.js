@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
   accumulateContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 5,
+    paddingHorizontal: 20,
     marginTop: 50,
+
   },
 });

@@ -1,7 +1,11 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, View, StyleSheet, Dimensions, Text } from "react-native";
 import { dataLesson } from "../../../dataFake/DataLesson";
 import ListLesson from "./ListLesson";
+import ButtonTopic from "../../../components/button/ButtonTopic";
+import { useNavigation } from "@react-navigation/native";
+import { icon_book } from "../../../assets/svg/iconTabNavigation/icon_book";
+
 const { width } = Dimensions.get("screen");
 const dynamicWaveOffsets = [
   -width * 0.2,
@@ -14,7 +18,18 @@ const dynamicWaveOffsets = [
   -width * 0.1,
 ];
 
-const ContentHome = ({ setCurrentTopic }) => {
+const ContentHome = () => {
+  const navigation = useNavigation();
+  const [currentTopic, setCurrentTopic] = useState();
+
+  const handleNavigateHome = () => {
+    navigation.navigate("ProgressTopic");
+  };
+
+  const handleNavigateConversationLesson = () => {
+    navigation.navigate("ConversationLesson");
+  };
+
   const onReachTopicEnd = (item) => {
     setCurrentTopic(item);
   };
@@ -41,20 +56,22 @@ const ContentHome = ({ setCurrentTopic }) => {
     ({ item }) => {
       return (
         <View key={item.idTopic} style={styles.itemWrapper}>
-          <View style={styles.topicHeader}>
-            <View style={styles.topicTitleWrapper}>
-              <Text style={styles.topicTitle}>{item.nameTopic}</Text>
-            </View>
-          </View>
+          <ButtonTopic
+            ItemNumberTopic="PHẦN 1, CỬA 1"
+            NameTopic={currentTopic?.nameTopic || []}
+            iconBook={icon_book}
+            onPressTopic={handleNavigateHome}
+            onPressLesson={handleNavigateConversationLesson}
+          />
           <ListLesson listLesson={item?.listLessons || []} />
         </View>
       );
     },
-    [getTranslateX]
+    [currentTopic]
   );
 
   useEffect(() => {
-    if (dataLesson) {
+    if (dataLesson && dataLesson.length > 0) {
       setCurrentTopic(dataLesson[0]);
     }
   }, []);
@@ -62,7 +79,7 @@ const ContentHome = ({ setCurrentTopic }) => {
   return (
     <FlatList
       data={dataLesson}
-      keyExtractor={(item) => String(item.idTopic)} // Đảm bảo trả về giá trị duy nhất và dạng chuỗi
+      keyExtractor={(item) => String(item.idTopic)}
       style={styles.contentHome}
       contentContainerStyle={styles.contentContainerStyles}
       showsVerticalScrollIndicator={false}
@@ -79,29 +96,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainerStyles: {
-    paddingTop: 30,
+    // paddingTop: 30,
     paddingBottom: 100,
   },
   itemWrapper: {
     alignItems: "center",
     marginVertical: 10,
   },
-  lessonBox: {
-    padding: 20,
-    borderRadius: 20,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    elevation: 5,
-  },
   topicHeader: {
     width: "100%",
     height: 40,
     backgroundColor: "#4EB602",
     borderRadius: 10,
-    marginBottom: "10",
+    marginBottom: 10,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -110,7 +117,7 @@ const styles = StyleSheet.create({
   },
   topicTitle: {
     fontSize: 18,
-    color: "#FFFFFF", // Màu chữ
+    color: "#FFFFFF",
     fontWeight: "bold",
   },
 });

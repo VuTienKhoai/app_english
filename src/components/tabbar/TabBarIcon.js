@@ -8,7 +8,7 @@ export default function TabbarIcon(props) {
   switch (props.name) {
     case "Home":
       return <SvgXml key={props.name} xml={icon_HomePage} />;
-    case "AboutScreen":
+    case "ChestScreen":
       return <SvgXml key={props.name} xml={icon_chest} />;
     case "NotificationScreen":
       return <SvgXml key={props.name} xml={icon_notificationScreen} />;

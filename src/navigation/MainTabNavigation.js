@@ -7,6 +7,7 @@ import Home from "../screens/home/Home";
 import MyTabBar from "../components/tabbar/MyTabBar";
 import { tabBarVisible } from "../screens/StackOptions";
 import NotificationScreen from "../screens/home/NotificationScreen";
+import ChestScreen from "../screens/chest/ChestScreen";
 
 export const RefreshContext = createContext({
   isRefresh: false,
@@ -37,8 +38,8 @@ export default function MainTabNavigation() {
           })}
         />
         <TabNavigator.Screen
-          name="AboutScreen"
-          component={Home}
+          name="ChestScreen"
+          component={ChestScreen}
           options={({ route }) => ({
             tabBarLabel: "Tổng quan",
             tabBarVisible: tabBarVisible(route),

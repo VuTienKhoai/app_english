@@ -20,13 +20,13 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <HeaderHome />
-      <ButtonTopic
+      {/* <ButtonTopic
         ItemNumberTopic="PHẦN 1, CỬA 1"
         NameTopic={currentTopic?.nameTopic || []}
         iconBook={icon_book}
         onPressTopic={handleNavigateHome}
         onPressLesson={handleNavigateConversationLesson}
-      />
+      /> */}
       <ContentHome setCurrentTopic={setCurrentTopic} />
     </View>
   );
@@ -35,8 +35,9 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 30,
-    gap: 20,
+    // marginHorizontal: 30,
+    // gap: 20,
+
   },
   accumulateContainer: {
     flexDirection: "row",

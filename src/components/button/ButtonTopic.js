@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "center",
+    width: "100%",
+    paddingHorizontal: 20,
+    paddingVertical: 15,
   },
   ButtonLessonLeft: {
     width: "85%",
