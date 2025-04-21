@@ -1,1 +1,1 @@
-export const APP_URL = "http://chuyenmenhapi.zamiga.asia/api/v1";
+export const APP_URL = "https://localhost:7035/";
