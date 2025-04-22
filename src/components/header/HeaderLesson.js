@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 10,
-    height: 50,
+    height: 40,
     marginTop: 20,
     marginBottom: 10,
     gap: 10,
