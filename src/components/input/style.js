@@ -60,7 +60,4 @@ export const styles = StyleSheet.create({
     width: 25,
     height: 25,
   },
-  FormViewAuth: {
-    flexDirection: "row",
-  },
 });
