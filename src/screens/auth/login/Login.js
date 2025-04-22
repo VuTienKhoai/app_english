@@ -8,16 +8,29 @@ import {
   TouchableOpacity,
   Linking,
 } from "react-native";
-
+import InputFromAuth from "../../../components/input/InputFormAuth";
+import { useForm } from "react-hook-form";
+import { PHONE_RULES, USERNAME_RULES } from "../../../constants/Rules";
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("123@gmail.com");
   const [password, setPassword] = useState("*********");
-
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      userName: "",
+      password: "",
+    },
+  });
   const handleLogin = () => {
     // Handle login logic here (e.g., API call, validation)
     console.log("Logging in with:", email, password);
   };
-
+  const onSubmit = (values) => {
+    console.log("🚀 ~ onSubmit ~ values:", values);
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -39,24 +52,25 @@ export default function Login({ navigation }) {
       <Text style={styles.title}>Sign into your Account</Text>
       <Text style={styles.subtitle}>Log into your FOXY account</Text>
 
-      <Text style={styles.label}>Your email</Text>
-      <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        accessible={true}
-        accessibilityLabel="Enter your email"
+      <InputFromAuth
+        name="userName"
+        control={control}
+        title="Tên người dùng"
+        placeholder="Nhập tên người dùng"
+        rules={USERNAME_RULES}
+        errors={errors.userName}
+        keyBoardType="default"
       />
 
-      <Text style={styles.label}>Password</Text>
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        accessible={true}
-        accessibilityLabel="Enter your password"
+      <InputFromAuth
+        name="userName"
+        control={control}
+        title="Mật khẩu"
+        placeholder="Nhập mật khẩu"
+        rules={PHONE_RULES}
+        errors={errors.password}
+        secureTextEntry={true}
+        keyBoardType="default"
       />
 
       <Text style={styles.forgotPassword}>
@@ -73,7 +87,7 @@ export default function Login({ navigation }) {
 
       <TouchableOpacity
         style={styles.loginButton}
-        onPress={handleLogin}
+        onPress={handleSubmit(onSubmit)}
         accessible={true}
         accessibilityLabel="Log in"
       >
