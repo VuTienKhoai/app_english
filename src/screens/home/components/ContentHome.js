@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { FlatList, View, StyleSheet, Dimensions } from "react-native";
 import { dataLesson } from "../../../dataFake/DataLesson";
 import ListLesson from "./ListLesson";
@@ -36,10 +36,13 @@ const ContentHome = () => {
   const renderItem = useCallback(
     ({ item }) => (
       <View style={styles.itemWrapper}>
-        <ListLesson listLesson={item?.listLessons || []} />
+        <ListLesson
+          listLesson={item?.listLessons || []}
+          navigation={navigation} // truyền navigation vào ListLesson
+        />
       </View>
     ),
-    []
+    [navigation]
   );
 
   return (

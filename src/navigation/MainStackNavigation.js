@@ -16,6 +16,7 @@ import StreakScreen from "../screens/home/streak/StreakScreen";
 import EnterOTP from "../screens/auth/enterOTP/EnterOTP";
 import resetPassword from "../screens/auth/resetPassword/resetPassword";
 import Home from "../screens/home/Home";
+import Question_choice from "../screens/question/Question_choice";
 
 export default function MainStackNavigation() {
   const Stack = createStackNavigator();
@@ -56,6 +57,11 @@ export default function MainStackNavigation() {
       <Stack.Screen
         name="Question"
         component={Question}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Question_choice"
+        component={Question_choice}
         options={{ headerShown: false }}
       />
       <Stack.Screen
