@@ -4,11 +4,15 @@ import { dataPurpose } from "./../../../dataFake/DataSocial";
 import Animated, { BounceOut, FadeInLeft } from "react-native-reanimated";
 import ButtonList from "../../../components/button/ButtonList";
 
-const ThirdContentOnBoarding = () => {
+const ThirdContentOnBoarding = ({ onSelect }) => {
   const [selectedSocial, setSelectedSocial] = useState(null);
-  const handleSelected = useCallback((id) => {
-    setSelectedSocial(id);
-  }, []);
+  const handleSelected = useCallback(
+    (id) => {
+      setSelectedSocial(id);
+      onSelect(id);
+    },
+    [onSelect]
+  );
   return (
     <ScrollView
       contentContainerStyle={styles.scrollContent}

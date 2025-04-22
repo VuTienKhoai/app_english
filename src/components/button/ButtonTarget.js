@@ -1,12 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { memo, useCallback, useEffect, useRef } from "react";
-import { PropTypes } from "prop-types";
-import {
-  BACKGROUND_WHITE,
-  TEXT_COLORS_BLUE,
-  COLOR_BTN_ACTIVE,
-} from "../../constants/Color";
+import PropTypes from "prop-types"; // Sửa PropTypes import
+import { BACKGROUND_WHITE, TEXT_COLORS_BLUE } from "../../constants/Color";
 import { Audio } from "expo-av";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated"; // Thêm reanimated cho hiệu ứng
 
 const BtnTarget = (props) => {
   const {
@@ -15,7 +16,7 @@ const BtnTarget = (props) => {
     colorText,
     colorBackground = BACKGROUND_WHITE,
     colorTextActive = TEXT_COLORS_BLUE,
-    colorBackgroundActive = COLOR_BTN_ACTIVE,
+    colorBackgroundActive = "#DDF3FE",
     borderColor = "#E5E5E5",
     borderColorActive = "#84D8FF",
     shadowColor = "#E5E5E5",
@@ -23,7 +24,13 @@ const BtnTarget = (props) => {
     status,
     onPress,
   } = props;
- const soundRef = useRef(new Audio.Sound());
+
+  const soundRef = useRef(new Audio.Sound());
+  const scale = useSharedValue(1); // Thêm scale cho hiệu ứng nhấn
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
 
   const handleLoadSound = useCallback(async () => {
     try {
@@ -33,7 +40,7 @@ const BtnTarget = (props) => {
     } catch (error) {
       console.error("Lỗi tải âm thanh:", error);
     }
-  }, [soundRef]);
+  }, []);
 
   useEffect(() => {
     handleLoadSound();
@@ -51,45 +58,61 @@ const BtnTarget = (props) => {
       console.error("Lỗi phát âm thanh:", error);
     }
   };
+
   const handleOnClick = useCallback(async () => {
     await playSound();
     onPress && onPress();
   }, [onPress]);
+
+  const handlePressIn = () => {
+    scale.value = withSpring(0.95); // Thu nhỏ khi nhấn
+  };
+
+  const handlePressOut = () => {
+    scale.value = withSpring(1); // Phóng to lại khi thả
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={[
-          {
-            backgroundColor: status ? colorBackgroundActive : colorBackground,
-            borderColor: status ? borderColorActive : borderColor,
-            shadowColor: status ? shadowColorActive : shadowColor,
-          },
-          styles.button,
-        ]}
-        onPress={handleOnClick}
-      >
-        <Text
+      <Animated.View style={animatedStyle}>
+        <TouchableOpacity
           style={[
-            { color: status ? colorTextActive : colorText },
-            styles.textbtnTime,
+            {
+              backgroundColor: status ? colorBackgroundActive : colorBackground,
+              borderColor: status ? borderColorActive : borderColor,
+              shadowColor: status ? shadowColorActive : shadowColor,
+            },
+            styles.button,
           ]}
+          onPress={handleOnClick}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
         >
-          {textleft}
-        </Text>
-        <Text
-          style={[
-            { color: status ? colorTextActive : colorText },
-            styles.textbtnLevel,
-          ]}
-        >
-          {textright}
-        </Text>
-      </TouchableOpacity>
+          <Text
+            style={[
+              { color: status ? colorTextActive : colorText },
+              styles.textbtnTime,
+            ]}
+          >
+            {textleft}
+          </Text>
+          <Text
+            style={[
+              { color: status ? colorTextActive : colorText },
+              styles.textbtnLevel,
+            ]}
+          >
+            {textright}
+          </Text>
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 };
-BtnTarget.PropTypes = {
-  text: PropTypes.string,
+
+BtnTarget.propTypes = {
+  textleft: PropTypes.string,
+  textright: PropTypes.string,
   colorText: PropTypes.string,
   colorBackground: PropTypes.string,
   colorTextActive: PropTypes.string,
@@ -101,12 +124,13 @@ BtnTarget.PropTypes = {
   status: PropTypes.bool,
   onPress: PropTypes.func,
 };
+
 export default memo(BtnTarget);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 25, //cach hai ben màn hình
+    marginHorizontal: 25, // Cách hai bên màn hình
   },
   button: {
     padding: 20,
@@ -114,9 +138,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 13,
-    borderWidth: 2, // Độ dày viền
-    shadowOffset: { width: 0, height: 2 }, // Bóng đổ lệch xuống dưới nhiều hơn
-    shadowOpacity: 1, // Độ trong suốt của bóng (React Native)
+    borderWidth: 2,
+    borderBottomWidth: 4, // Viền dưới đậm hơn
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   textbtnTime: {
     fontSize: 16,

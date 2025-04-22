@@ -1,9 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
-import Animated, {
-  FadeInLeft,
-  BounceOut,
-} from "react-native-reanimated";
+import Animated, { FadeInLeft, BounceOut } from "react-native-reanimated";
 import ButtonTarget from "../../../components/button/ButtonTarget";
 import { memo } from "react";
 import { ScrollView } from "react-native-gesture-handler";
@@ -34,12 +31,15 @@ const dataTarget = [
   },
 ];
 
-
-const FourthContentOnBoarding = () => {
+const FourthContentOnBoarding = ({ onSelect }) => {
   const [selectedTarget, setSelectedSocial] = useState(null);
-  const handleSelected = useCallback((id) => {
-    setSelectedSocial(id);
-  }, []);
+  const handleSelected = useCallback(
+    (id) => {
+      setSelectedSocial(id);
+      onSelect(id);
+    },
+    [onSelect]
+  );
   return (
     <ScrollView
       contentContainerStyle={styles.scrollContent}

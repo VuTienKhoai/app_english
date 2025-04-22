@@ -7,19 +7,14 @@ import {
   Image,
 } from "react-native";
 import React, { memo, useState } from "react";
-import { useNavigation } from "@react-navigation/native"; // <-- dùng navigation
 
-const FifthContentOnBoarding = () => {
+const FifthContentOnBoarding = ({ onSelect }) => {
   const [selectedOption, setSelectedOption] = useState(null);
-  const navigation = useNavigation(); // <-- hook điều hướng
+
   // Hàm xử lý khi nhấn vào một tùy chọn
   const handlePressOption = (option) => {
-    console.log(`Bạn đã chọn mục: ${option}`);
-    if (option === "beginner") {
-      navigation.navigate("MainTabNavigation"); // <-- điều hướng đến Homepage
-    } else if (option === "intermediate") {
-      navigation.navigate("MainTabNavigation"); // <-- điều hướng đến Page2
-    }
+    setSelectedOption(option);
+    onSelect(option); // Gọi onSelect để thông báo cho parent về lựa chọn
   };
 
   return (

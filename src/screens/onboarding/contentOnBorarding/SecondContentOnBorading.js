@@ -4,18 +4,22 @@ import { level } from "./../../../dataFake/DataSocial";
 import Animated, { BounceOut, FadeInLeft } from "react-native-reanimated";
 import ButtonList from "../../../components/button/ButtonList";
 
-const SecondContentOnBorading = () => {
+const SecondContentOnBorading = ({ onSelect }) => {
   const [selectedSocial, setSelectedSocial] = useState(null);
-  const handleSelected = useCallback((id) => {
-    setSelectedSocial(id);
-  }, []);
+  const handleSelected = useCallback(
+    (id) => {
+      setSelectedSocial(id);
+      onSelect(id);
+    },
+    [onSelect]
+  );
   return (
     <ScrollView
       contentContainerStyle={styles.scrollContent}
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.btnList}>
-        {level?.map((item, index) => (
+        {level?.map((item) => (
           <Animated.View
             entering={FadeInLeft}
             exiting={BounceOut}

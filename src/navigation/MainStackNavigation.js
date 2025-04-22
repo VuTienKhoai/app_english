@@ -15,15 +15,32 @@ import MainStackOnBoarding from "./MainStackOnBoarding";
 import StreakScreen from "../screens/home/streak/StreakScreen";
 import EnterOTP from "../screens/auth/enterOTP/EnterOTP";
 import resetPassword from "../screens/auth/resetPassword/resetPassword";
+import Home from "../screens/home/Home";
 
 export default function MainStackNavigation() {
   const Stack = createStackNavigator();
   return (
     // <SafeAreaView style={{ flex: 1 }}>
     <Stack.Navigator>
+    
+      <Stack.Screen
+        name="MainStackOnBoarding"
+        component={MainStackOnBoarding}
+        options={{ headerShown: false }}
+      />
+         <Stack.Screen
+        name="MainTabNavigation"
+        component={MainTabNavigation}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Login"
         component={Login}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Home"
+        component={Home}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -37,11 +54,6 @@ export default function MainStackNavigation() {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen
-        name="MainStackOnBoarding"
-        component={MainStackOnBoarding}
-        options={{ headerShown: false }}
-      />
       <Stack.Screen
         name="Topic"
         component={Topic}
@@ -81,11 +93,6 @@ export default function MainStackNavigation() {
       <Stack.Screen
         name="ForgotPassword"
         component={ForgotPassword}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="MainTabNavigation"
-        component={MainTabNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

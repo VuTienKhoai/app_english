@@ -1,11 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import React, { memo, useCallback, useEffect, useRef } from "react";
 import { PropTypes } from "prop-types";
-import {
-  BACKGROUND_WHITE,
-  COLOR_BTN_ACTIVE,
-  TEXT_COLORS_BLUE,
-} from "../../constants/Color";
+import { BACKGROUND_WHITE, TEXT_COLORS_BLUE } from "../../constants/Color";
 import { Audio } from "expo-av";
 const ButtonList = (props) => {
   const {
@@ -14,7 +10,7 @@ const ButtonList = (props) => {
     colorText,
     colorBackground = BACKGROUND_WHITE,
     colorTextActive = TEXT_COLORS_BLUE,
-    colorBackgroundActive = COLOR_BTN_ACTIVE,
+    colorBackgroundActive = "#DDF3FE",
     borderColor = "#E5E5E5",
     borderColorActive = "#84D8FF",
     shadowColor = "#E5E5E5",
@@ -107,8 +103,7 @@ const styles = StyleSheet.create({
     gap: 20,
     borderRadius: 13,
     borderWidth: 2, // Độ dày viền
-    shadowOffset: { width: 0, height: 2 }, // Bóng đổ lệch xuống dưới nhiều hơn
-    shadowOpacity: 1, // Độ trong suốt của bóng (React Native)
+    borderBottomWidth: 4, // Viền dưới đậm 2px
   },
   textbtn: {
     fontSize: 16,
