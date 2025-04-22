@@ -14,8 +14,7 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("*********");
 
   const handleLogin = () => {
-    // Handle login logic here (e.g., API call, validation)
-    console.log("Logging in with:", email, password);
+    navigation.navigate('Home')
   };
 
   return (

@@ -15,6 +15,7 @@ import MainStackOnBoarding from "./MainStackOnBoarding";
 import StreakScreen from "../screens/home/streak/StreakScreen";
 import EnterOTP from "../screens/auth/enterOTP/EnterOTP";
 import resetPassword from "../screens/auth/resetPassword/resetPassword";
+import Home from "../screens/home/Home";
 
 export default function MainStackNavigation() {
   const Stack = createStackNavigator();
@@ -86,6 +87,11 @@ export default function MainStackNavigation() {
       <Stack.Screen
         name="MainTabNavigation"
         component={MainTabNavigation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Home"
+        component={Home}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
