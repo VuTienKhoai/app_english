@@ -7,6 +7,7 @@ import Home from "../screens/home/Home";
 import MyTabBar from "../components/tabbar/MyTabBar";
 import { tabBarVisible } from "../screens/StackOptions";
 import NotificationScreen from "../screens/home/NotificationScreen";
+import Ranking from "../screens/home/Ranking";
 import ChestScreen from "../screens/chest/ChestScreen";
 
 export const RefreshContext = createContext({
@@ -55,7 +56,7 @@ export default function MainTabNavigation() {
         />
         <TabNavigator.Screen
           name="EmulationScreen"
-          component={Home}
+          component={Ranking}
           options={({ route }) => ({
             tabBarLabel: "Tổng quan",
             tabBarVisible: tabBarVisible(route),
