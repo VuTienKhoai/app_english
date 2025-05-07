@@ -1,5 +1,4 @@
 import axios from "axios";
-// redux
 
 import { store } from "../redux/store";
 import { resetLogin } from "../redux/slide/app.slice";
@@ -67,7 +66,18 @@ const axiosClient = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+// Axios instance **không** kẹp token, dùng cho login/register
+const axiosClientNoAuth = axios.create({
+  baseURL: APP_URL,
+  headers: { "Content-Type": "application/json" },
+});
+// (Tuỳ chọn nếu bạn vẫn muốn xài chung response interceptor để bắt lỗi)
+axiosClientNoAuth.interceptors.response.use(
+  handleResponse,
+  handleResponseError
+);
 attachInterceptors(axiosClient);
 
 // Xuất các client
-export { axiosLoginClient, axiosClientFile, axiosClientV2, axiosClient };
+export { axiosClientFile, axiosClient, axiosClientNoAuth };

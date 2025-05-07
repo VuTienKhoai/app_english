@@ -1,128 +1,134 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
+import { useForm } from "react-hook-form";
 import {
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
-  View,
   Image,
   ScrollView,
-  Alert,
+  Dimensions,
+  View,
 } from "react-native";
-
+import InputFromAuth from "../../../components/input/InputFormAuth";
+import {
+  EMAIL_RULES,
+  PASSWORD_RULES,
+  PASSWORD_RULES_CONFIRM,
+  USERNAME_RULES,
+} from "../../../constants/Rules";
+import Animated, { BounceIn } from "react-native-reanimated";
+import ButtonSound from "../../../components/button/ButtonSound";
+const { width, height } = Dimensions.get("screen");
 export default function Register({ navigation }) {
-  const [fullname, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
-
-  const validateEmail = (email) => {
-    // Enforce email ending with @gmail.com
-    const re = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-    return re.test(email);
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      username: "",
+    },
+  });
+  const password = watch("password");
+  const handleNavigateLogin = useCallback(() => {
+    navigation.navigate("Login");
+  }, []);
+  const onSubmit = (values) => {
+    if (!values) {
+      ShowToastCustom({
+        text1: "Dữ liệu không được để trống",
+        typeStatus: "warring",
+      });
+      return;
+    }
   };
-
-  const handleSubmit = () => {
-    // Trim inputs to avoid whitespace issues
-    const trimmedFullname = fullname.trim();
-    const trimmedEmail = email.trim();
-
-    // Kiểm tra các trường bắt buộc
-    if (!trimmedFullname || !trimmedEmail || !password || !repeatPassword) {
-      Alert.alert("Lỗi xác thực", "Vui lòng điền đầy đủ thông tin.");
-      return;
-    }
-
-    // Kiểm tra định dạng email
-    if (!validateEmail(trimmedEmail)) {
-      Alert.alert(
-        "Lỗi xác thực",
-        "Vui lòng nhập địa chỉ Gmail hợp lệ (ví dụ: tennguoidung@gmail.com)."
-      );
-      return;
-    }
-
-    // Kiểm tra khớp mật khẩu
-    if (password !== repeatPassword) {
-      Alert.alert("Lỗi xác thực", "Mật khẩu nhập lại không khớp.");
-      return;
-    }
-
-    // Kiểm tra độ dài mật khẩu tối thiểu
-    if (password.length < 6) {
-      Alert.alert("Lỗi xác thực", "Mật khẩu phải có ít nhất 6 ký tự.");
-      return;
-    }
-
-    // Nếu hợp lệ
-    Alert.alert("Thành công", "Tạo tài khoản thành công!");
-    // Trong ứng dụng thực tế, có thể gửi dữ liệu tới backend ở đây
-  };
-
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <TouchableOpacity style={styles.closeButton}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.closeButton}
+      >
         <Text style={styles.closeText}>×</Text>
       </TouchableOpacity>
-      <Image
-        source={{
-          uri: "https://media.giphy.com/media/TFNbcscr9JUUigDzrZ/giphy.gif",
-        }}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Create Account</Text>
+      <View style={styles.box_imageLogin}>
+        <Image
+          source={{
+            uri: "https://media.giphy.com/media/TFNbcscr9JUUigDzrZ/giphy.gif",
+          }}
+          style={styles.logo}
+        />
+      </View>
+      <Text style={styles.title}>Tạo tài khoản</Text>
       <Text style={styles.subtitle}>
-        Open a FOXY account with a few details.
+        Hãy tạo tài khoản để đồng hành cùng tớ
       </Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Full name"
-        value={fullname}
-        onChangeText={setFullname}
-        autoCapitalize="words"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Gmail address"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Repeat password"
-        secureTextEntry
-        value={repeatPassword}
-        onChangeText={setRepeatPassword}
+      <InputFromAuth
+        name="email"
+        control={control}
+        title="Địa chỉ email"
+        placeholder="Nhập địa chỉ email"
+        rules={EMAIL_RULES}
+        errors={errors.email}
+        keyBoardType="default"
       />
 
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.submitText}>CREATE YOUR ACCOUNT</Text>
-      </TouchableOpacity>
-
-     
+      <InputFromAuth
+        name="password"
+        control={control}
+        title="Mật khẩu"
+        placeholder="Nhập mật khẩu"
+        rules={PASSWORD_RULES}
+        errors={errors.password}
+        secureTextEntry={true}
+        keyBoardType="default"
+      />
+      <InputFromAuth
+        name="confirmPassword"
+        control={control}
+        title="Mật khẩu nhập lại"
+        placeholder="Nhập mật khẩu lại"
+        rules={PASSWORD_RULES_CONFIRM(password)}
+        errors={errors.confirmPassword}
+        secureTextEntry={true}
+        keyBoardType="default"
+      />
+      <InputFromAuth
+        name="username"
+        control={control}
+        title="Tên người dùng"
+        placeholder="Nhập tên người dùng"
+        rules={USERNAME_RULES}
+        errors={errors.username}
+        keyBoardType="default"
+      />
+      <Animated.View entering={BounceIn} style={styles.btnLogin}>
+        <ButtonSound
+          title={"Tạo tài khoản của bạn"}
+          onPress={handleSubmit(onSubmit)}
+          backgroundColor={"#58CC02"}
+          shadowColor={"#58A700"}
+          borderColor={"#58CC02"}
+          textStyle={styles.buttonText1}
+        />
+      </Animated.View>
       <Text style={styles.signInText}>
-        Do you already have a FOXY account?{" "}
+        Bạn đã có tài khoản?{" "}
         <Text
           style={styles.signInLink}
-          onPress={() => navigation.navigate("Login")} // Navigate to Login screen
+          onPress={handleNavigateLogin} // Navigate to Login screen
           accessible={true}
           accessibilityLabel="Sign in here"
         >
-          Sign in here
+          Đăng nhập tại đây
         </Text>
       </Text>
-
-     
     </ScrollView>
   );
 }
@@ -130,13 +136,12 @@ export default function Register({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    padding: 24,
-    flexGrow: 1,
-    alignItems: "center",
+    paddingHorizontal: 24,
+    flex: 1,
   },
   closeButton: {
-    alignSelf: "flex-start",
-    marginBottom: 18,
+    alignSelf: "flex-end",
+    // marginBottom: 10,
     marginTop: 10,
   },
   closeText: {
@@ -144,21 +149,22 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: width * 0.5,
+    height: width * 0.5,
     marginBottom: 24,
-    borderRadius: 64,
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
-    color: "#58CC02",
-    marginBottom: 8,
+    color: "#58CC02", // Màu xanh Duolingo
+    textAlign: "center",
+    marginBottom: 4,
   },
   subtitle: {
     fontSize: 15,
     color: "#374151",
     marginBottom: 30,
+    textAlign: "center",
   },
   input: {
     width: "100%",
@@ -200,9 +206,17 @@ const styles = StyleSheet.create({
     color: "#58CC02",
     textDecorationLine: "underline",
   },
-  signupText: {
-    fontSize: 12,
-    textAlign: "center",
-    color: "#4B5563",
+  buttonText1: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  btnLogin: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  box_imageLogin: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });

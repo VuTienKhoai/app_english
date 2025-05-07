@@ -1,26 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  phoneNumber: "",
-  gmail: "",
-  faceBook: "",
-  code: "",
+  userId: "",
   userName: "",
-  avatar: "",
-  introduce: "",
-  gender: "",
-  friends: null,
-  refCode: "",
-  _id: "",
-  idUserToolAI: "",
-  createdDate: "",
-  createdBy: "",
-  lastUpdatedDate: "",
-  lastUpdatedBy: "",
-  isDeleted: false,
-  avatarPersonal: "",
-  studyLevel: 0,
-  birthDay: "",
+  email: "",
+  role: "",
+  address: "",
+  numberPhone: "",
+  age: "",
 };
 
 const userSlice = createSlice({
@@ -30,23 +17,12 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       return action.payload; // Trả về state mới
     },
-    setAvatar: (state, action) => {
-      state.avatar = action.payload;
-    },
-    setPhoneNumber: (state, action) => {
-      state.phoneNumber = action.payload;
-    },
-    setStudyLevel: (state, action) => {
-      state.studyLevel = action.payload;
+    setIdUser: (state, action) => {
+      state.userId = action.payload;
     },
   },
 });
 
-export const { setUser, setAvatar, setPhoneNumber, setStudyLevel } =
-  userSlice.actions;
-export const getRefCodeUser = (state) =>
-  state.persistedUserReducer.user.refCode;
-export const getPhoneNumber = (state) =>
-  state.persistedUserReducer.user.phoneNumber;
+export const { setUser, setIdUser } = userSlice.actions;
 export const getUserInfoState = (state) => state.persistedUserReducer.user;
 export default userSlice.reducer;

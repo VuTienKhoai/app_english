@@ -1,111 +1,107 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
   Image,
   TouchableOpacity,
-  Linking,
+  Dimensions,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import InputFromAuth from "../../../components/input/InputFormAuth";
-import { useForm } from "react-hook-form";
-import { PHONE_RULES, USERNAME_RULES } from "../../../constants/Rules";
+import { EMAIL_RULES, PASSWORD_RULES } from "../../../constants/Rules";
+import ButtonSound from "../../../components/button/ButtonSound";
+import Animated, { BounceIn } from "react-native-reanimated";
+import { useLogin } from "./hook/useLogin";
+const { width } = Dimensions.get("screen");
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("123@gmail.com");
-  const [password, setPassword] = useState("*********");
   const {
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      userName: "",
-      password: "",
-    },
-  });
-  const handleLogin = () => {
-    // Handle login logic here (e.g., API call, validation)
-    console.log("Logging in with:", email, password);
-  };
-  const onSubmit = (values) => {
-    console.log("🚀 ~ onSubmit ~ values:", values);
-  };
+    errors,
+    onSubmit,
+    handleForgotPassword,
+    handleResgister,
+  } = useLogin();
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.closeButton}
-        onPress={() => navigation.goBack()} // Close the screen or navigate back
-        accessible={true}
-        accessibilityLabel="Close Login Screen"
-      >
-        <Text style={styles.closeText}>×</Text>
-      </TouchableOpacity>
-
-      <Image
-        source={{
-          uri: "https://media.giphy.com/media/MBP7KcK9d3lyqNWRaF/giphy.gif",
-        }}
-        style={styles.logo}
-      />
-
-      <Text style={styles.title}>Sign into your Account</Text>
-      <Text style={styles.subtitle}>Log into your FOXY account</Text>
-
-      <InputFromAuth
-        name="userName"
-        control={control}
-        title="Tên người dùng"
-        placeholder="Nhập tên người dùng"
-        rules={USERNAME_RULES}
-        errors={errors.userName}
-        keyBoardType="default"
-      />
-
-      <InputFromAuth
-        name="userName"
-        control={control}
-        title="Mật khẩu"
-        placeholder="Nhập mật khẩu"
-        rules={PHONE_RULES}
-        errors={errors.password}
-        secureTextEntry={true}
-        keyBoardType="default"
-      />
-
-      <Text style={styles.forgotPassword}>
-        Do not remember your password?{" "}
-        <Text
-          style={styles.link}
-          onPress={() => navigation.navigate("ForgotPassword")}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.closeButton}
+          onPress={() => navigation.goBack()}
           accessible={true}
-          accessibilityLabel="Click here to recover password"
+          accessibilityLabel="Close Login Screen"
         >
-          click here to recover it
-        </Text>
-      </Text>
+          <Text style={styles.closeText}>×</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.loginButton}
-        onPress={handleSubmit(onSubmit)}
-        accessible={true}
-        accessibilityLabel="Log in"
-      >
-        <Text style={styles.loginButtonText}>LOG IN</Text>
-      </TouchableOpacity>
+        <Image
+          source={{
+            uri: "https://media.giphy.com/media/MBP7KcK9d3lyqNWRaF/giphy.gif",
+          }}
+          style={styles.logo}
+        />
 
-      <Text style={styles.signupText}>
-        Do you not have a FOXY account?{" "}
-        <Text
-          style={styles.link}
-          onPress={() => navigation.navigate("Register")} // Navigate to Register screen
-          accessible={true}
-          accessibilityLabel="Sign up for an account"
-        >
-          Sign up here
+        <Text style={styles.title}>Đăng nhập tài khoản</Text>
+
+        <InputFromAuth
+          name="email"
+          control={control}
+          title="Địa chỉ email"
+          placeholder="Nhập địa chỉ email"
+          rules={EMAIL_RULES}
+          errors={errors.email}
+          keyBoardType="default"
+        />
+
+        <InputFromAuth
+          name="password"
+          control={control}
+          title="Mật khẩu"
+          placeholder="Nhập mật khẩu"
+          rules={PASSWORD_RULES}
+          errors={errors.password}
+          secureTextEntry={true}
+          keyBoardType="default"
+        />
+
+        <Text style={styles.forgotPassword}>
+          Bạn không nhớ mật khẩu?{" "}
+          <Text
+            style={styles.link}
+            onPress={handleForgotPassword}
+            accessible={true}
+            accessibilityLabel="Nhấn vào đây để khôi phục mật khẩu"
+          >
+            nhấn vào đây để khôi phục
+          </Text>
         </Text>
-      </Text>
-    </View>
+
+        <Animated.View entering={BounceIn} style={styles.btnLogin}>
+          <ButtonSound
+            title={"Đăng Nhập"}
+            onPress={handleSubmit(onSubmit)}
+            backgroundColor={"#58CC02"}
+            shadowColor={"#58A700"}
+            borderColor={"#58CC02"}
+            textStyle={styles.buttonText1}
+          />
+        </Animated.View>
+
+        <Text style={styles.signupText}>
+          Bạn chưa có tài khoản?{" "}
+          <Text
+            style={styles.link}
+            onPress={handleResgister} // Điều hướng đến màn hình Đăng ký
+            accessible={true}
+            accessibilityLabel="Đăng ký tài khoản"
+          >
+            Đăng ký tại đây
+          </Text>
+        </Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -114,7 +110,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 24,
-    justifyContent: "center",
   },
   closeButton: {
     position: "absolute",
@@ -126,8 +121,8 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: width * 0.4,
+    height: width * 0.4,
     alignSelf: "center",
     marginBottom: 24,
     borderRadius: 12,
@@ -183,8 +178,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   signupText: {
-    fontSize: 12,
+    fontSize: 14,
+    marginTop: 10,
     textAlign: "center",
     color: "#4B5563",
+  },
+  buttonText1: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  btnLogin: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });

@@ -15,65 +15,79 @@ import MainStackOnBoarding from "./MainStackOnBoarding";
 import StreakScreen from "../screens/home/streak/StreakScreen";
 import EnterOTP from "../screens/auth/enterOTP/EnterOTP";
 import resetPassword from "../screens/auth/resetPassword/resetPassword";
+import { useSelector } from "react-redux";
+import { getTokenState } from "../redux/slide/app.slice";
 
 export default function MainStackNavigation() {
   const Stack = createStackNavigator();
-  return (
-    // <SafeAreaView style={{ flex: 1 }}>
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="resetPassword"
-        component={resetPassword}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="EnterOTP"
-        component={EnterOTP}
-        options={{ headerShown: false }}
-      />
+  const AuthStack = createStackNavigator();
+  const token = useSelector(getTokenState);
+  // Nếu token có giá trị thì vào màn home
+  if (token) {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="MainTabNavigation"
+          component={MainTabNavigation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Topic"
+          component={Topic}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Lesson"
+          component={Lesson}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Question"
+          component={Question}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ProgressTopic"
+          component={ProgressTopic}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ConversationLesson"
+          component={ConversationLesson}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="StreakScreen"
+          component={StreakScreen}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    );
+  }
 
-      <Stack.Screen
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen
         name="MainStackOnBoarding"
         component={MainStackOnBoarding}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="Topic"
-        component={Topic}
+      <AuthStack.Screen
+        name="Login"
+        component={Login}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="Lesson"
-        component={Lesson}
+      <AuthStack.Screen
+        name="resetPassword"
+        component={resetPassword}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="Question"
-        component={Question}
+      <AuthStack.Screen
+        name="EnterOTP"
+        component={EnterOTP}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="ProgressTopic"
-        component={ProgressTopic}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ConversationLesson"
-        component={ConversationLesson}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="StreakScreen"
-        component={StreakScreen}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
+      <AuthStack.Screen
         name="Register"
         component={Register}
         options={{ headerShown: false }}
@@ -83,13 +97,6 @@ export default function MainStackNavigation() {
         component={ForgotPassword}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="MainTabNavigation"
-        component={MainTabNavigation}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-
-    // </SafeAreaView>
+    </AuthStack.Navigator>
   );
 }

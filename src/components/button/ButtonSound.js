@@ -76,5 +76,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.9,
     shadowRadius: 4,
     elevation: 5,
+    flex: 1,
   },
 });

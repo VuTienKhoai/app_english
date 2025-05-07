@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     marginVertical: 10,
   },
   InputFormTLabel: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "600",
     color: "#111827",
     marginBottom: 4,
@@ -35,23 +35,17 @@ export const styles = StyleSheet.create({
   gap2: {
     gap: 2,
     borderRadius: 10,
-    // minHeight: 70,
   },
   AuthInput: {
-    backgroundColor: "#F9FAFB",
-    borderColor: "#E5E7EB",
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 12,
-    lineHeight: 19,
+    lineHeight: 17,
     fontSize: 14,
     color: "#374151",
+    flex: 1,
   },
   inputError: {
-    fontSize: 12,
-    // marginTop: 5,
+    fontSize: 14,
     lineHeight: 20,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     color: "red",
     paddingLeft: 5,
     maxWidth: width - 48,
@@ -59,5 +53,20 @@ export const styles = StyleSheet.create({
   checkBoxStyle: {
     width: 25,
     height: 25,
+  },
+  FormViewAuth: {
+    borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: "#F9FAFB",
+    borderColor: "#E5E7EB",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iconEye: {
+    paddingHorizontal: 10,
+    // height: "100%",
+    // backgroundColor: "#F9FAFB",
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

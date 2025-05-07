@@ -74,7 +74,6 @@ const FifthScreen = ({ navigation }) => {
   const renderItem = ({ item }) => (
     <View style={styles.contentRenderItem}>{item.content}</View>
   );
-
   return (
     <View style={styles.container}>
       <HeaderLesson
@@ -99,14 +98,16 @@ const FifthScreen = ({ navigation }) => {
       />
       <View style={styles.bottomScreen}>
         <Animated.View entering={BounceIn} style={styles.btn_bottom}>
-          <ButtonSound
-            title={"COUNTINUE"}
-            onPress={handleNextStep}
-            backgroundColor={"#58CC02"}
-            shadowColor={"#58A700"}
-            borderColor={"#58CC02"}
-            textStyle={styles.buttonText1}
-          />
+          {(currentStep + 1) / steps.length != 1 && (
+            <ButtonSound
+              title={"COUNTINUE"}
+              onPress={handleNextStep}
+              backgroundColor={"#58CC02"}
+              shadowColor={"#58A700"}
+              borderColor={"#58CC02"}
+              textStyle={styles.buttonText1}
+            />
+          )}
         </Animated.View>
       </View>
       {/* <View style={styles.scrollContainer}>

@@ -21,4 +21,32 @@ const PHONE_RULES = {
     message: "Số điện thoại không hợp lệ (bắt đầu bằng 03, 05, 07, 08, 09)",
   },
 };
-export { USERNAME_RULES, PHONE_RULES };
+const EMAIL_RULES = {
+  required: "Email không được để trống",
+  pattern: {
+    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    message: "Email không hợp lệ",
+  },
+};
+
+const PASSWORD_RULES = {
+  required: "Mật khẩu không được để trống",
+  pattern: {
+    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
+    message:
+      "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ cái, số và có thể chứa ký tự đặc biệt @$!%*?&",
+  },
+};
+
+const PASSWORD_RULES_CONFIRM = (password) => ({
+  required: "Xác nhận mật khẩu không được để trống",
+  validate: (value) => value === password || "Mật khẩu xác nhận không khớp",
+});
+
+export {
+  USERNAME_RULES,
+  PHONE_RULES,
+  EMAIL_RULES,
+  PASSWORD_RULES,
+  PASSWORD_RULES_CONFIRM,
+};
