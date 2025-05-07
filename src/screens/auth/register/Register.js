@@ -38,6 +38,7 @@ export default function Register({ navigation }) {
     navigation.navigate("Login");
   }, []);
   const onSubmit = (values) => {
+    console.log("🚀 ~ onSubmit ~ values:", values);
     if (!values) {
       ShowToastCustom({
         text1: "Dữ liệu không được để trống",
@@ -92,8 +93,8 @@ export default function Register({ navigation }) {
       <InputFromAuth
         name="confirmPassword"
         control={control}
-        title="Mật khẩu nhập lại"
-        placeholder="Nhập mật khẩu lại"
+        title="Nhập khẩu mật lại"
+        placeholder="Nhập lại mật khẩu"
         rules={PASSWORD_RULES_CONFIRM(password)}
         errors={errors.confirmPassword}
         secureTextEntry={true}
@@ -141,7 +142,6 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     alignSelf: "flex-end",
-    // marginBottom: 10,
     marginTop: 10,
   },
   closeText: {
@@ -165,36 +165,6 @@ const styles = StyleSheet.create({
     color: "#374151",
     marginBottom: 30,
     textAlign: "center",
-  },
-  input: {
-    width: "100%",
-    backgroundColor: "#f9fafb",
-    borderColor: "#e5e7eb",
-    borderWidth: 1,
-    borderRadius: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    fontSize: 14,
-    color: "#4b5563",
-    marginBottom: 19,
-  },
-  submitButton: {
-    width: "100%",
-    backgroundColor: "#58CC02",
-    paddingVertical: 14,
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-    alignItems: "center",
-    marginTop: 30,
-  },
-  submitText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 12,
-    letterSpacing: 1,
   },
   signInText: {
     fontSize: 13,
