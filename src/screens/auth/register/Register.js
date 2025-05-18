@@ -18,7 +18,9 @@ import {
 } from "../../../constants/Rules";
 import Animated, { BounceIn } from "react-native-reanimated";
 import ButtonSound from "../../../components/button/ButtonSound";
-const { width, height } = Dimensions.get("screen");
+import { registerAccount } from "../services/auth.api";
+import ShowToastCustom from "../../../components/notification/ShowToast";
+const { width } = Dimensions.get("screen");
 export default function Register({ navigation }) {
   const {
     control,
@@ -38,7 +40,6 @@ export default function Register({ navigation }) {
     navigation.navigate("Login");
   }, []);
   const onSubmit = (values) => {
-    console.log("🚀 ~ onSubmit ~ values:", values);
     if (!values) {
       ShowToastCustom({
         text1: "Dữ liệu không được để trống",
@@ -46,12 +47,22 @@ export default function Register({ navigation }) {
       });
       return;
     }
+    registerAccount(values)
+      .then((res) => {
+        if (res?.success) {
+          ShowToastCustom({ text1: res?.message, typeStatus: "success" });
+          handleNavigateLogin();
+        } else {
+          ShowToastCustom({ text1: res?.message, typeStatus: "warring" });
+        }
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gọi API đăng nhập:", error);
+      });
   };
+
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={false}
-    >
+    <ScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={styles.closeButton}
